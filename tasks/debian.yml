@@ -18,6 +18,6 @@
     state: present
     filename: pgdg.list
 
-- name: Refresh apt metadata if needed
+- name: Refresh apt metadata
   apt:
     update_cache: yes
