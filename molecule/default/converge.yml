@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include b00ga.repo_pgdg role"
+      include_role:
+        name: "b00ga.repo_pgdg"

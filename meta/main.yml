@@ -1,0 +1,48 @@
+galaxy_info:
+  role_name: repo_pgdg
+  author: Shawn K. O'Shea
+  namespace: b00ga
+  description: Install PGDG repository
+  license: MIT
+
+  issue_tracker_url: https://github.com/b00ga/ansible-role-repo_pgdg/issues
+
+  min_ansible_version: '2.9'
+
+  platforms:
+    - name: EL
+      versions:
+        - '9'
+        - '8'
+        - '7'
+    - name: Fedora
+      versions:
+        - '36'
+        - '35'
+    - name: Debian
+      versions:
+        - bullseye
+        - buster
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+    - name: SLES
+      versions:
+        - '15'
+    - name: opensuse
+      versions:
+        - '15.0'
+        - '15.1'
+        - '15.2'
+        - '15.3'
+
+  galaxy_tags:
+    - pgdg
+    - repo
+    - repository
+    - postgres
+    - postgresql
+
+dependencies: []

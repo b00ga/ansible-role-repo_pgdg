@@ -1,0 +1,15 @@
+---
+- name: Install PGDG repo
+  get_url:
+    url: "{{ pgdg_zypp_repo_url }}"
+    dest: "/etc/zypp/repos.d/{{ pgdg_zypp_repo_url | urlsplit('path') | basename }}"
+    owner: root
+    group: root
+    mode: '0544'
+
+- name: Refresh zypper metadata
+  zypper_repository:
+    name: pgdg-13
+    repo: '*'
+    auto_import_keys: yes
+    runrefresh: yes

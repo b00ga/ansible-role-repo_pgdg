@@ -1,0 +1,17 @@
+---
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Get package manager
+    setup:
+      gather_subset:
+        - '!min'
+        - '!all'
+        - 'pkg_mgr'
+
+  - name: Install postgresql
+    package:
+      name: "{{ 'postgresql-13' if (ansible_pkg_mgr == 'apt') else 'postgresql13' }}"
+      state: present

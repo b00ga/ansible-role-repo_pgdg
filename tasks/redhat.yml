@@ -1,0 +1,28 @@
+---
+- name: Check for PostgreSQL AppStream on EL8
+  stat:
+    path: /etc/dnf/modules.d/postgresql.module
+  register: pgdg_postgresql_module
+  when: ansible_distribution_major_version == '8'
+
+- name: Disable PostgreSQL AppStream on EL8
+  command: dnf module disable -y postgresql
+  when: ansible_distribution_major_version == '8' and pgdg_postgresql_module.stat.exists
+
+- name: Import PGDG repo key
+  rpm_key:
+    key: "{{ pgdg_yum_repokey_url if (ansible_pkg_mgr == 'yum') else pgdg_dnf_repokey_url }}"
+    state: present
+  register: result
+  until: result is succeeded
+  retries: 5
+  delay: 10
+
+- name: Install PGDG repo package
+  yum:
+    name: "{{ pgdg_yum_repo_url if (ansible_pkg_mgr == 'yum') else pgdg_dnf_repo_url }}"
+    state: present
+  register: result
+  until: result is succeeded
+  retries: 5
+  delay: 10
