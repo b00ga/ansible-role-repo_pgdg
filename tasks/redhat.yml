@@ -1,13 +1,14 @@
 ---
 - name: Check for PostgreSQL AppStream on EL8
-  stat:
-    path: /etc/dnf/modules.d/postgresql.module
+  command: dnf -y module list --disabled
   register: pgdg_postgresql_module
   when: ansible_distribution_major_version == '8'
+  changed_when: false
 
 - name: Disable PostgreSQL AppStream on EL8
-  command: dnf module disable -y postgresql
-  when: ansible_distribution_major_version == '8' and pgdg_postgresql_module.stat.exists
+  command: dnf -y module disable postgresql
+  when: ansible_distribution_major_version == '8' and ('postgresql' not in pgdg_postgresql_module.stdout)
+        and ('not registered with an entitlement server' not in pgdg_postgresql_module.stdout)
 
 - name: Import PGDG repo key
   rpm_key:
