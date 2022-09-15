@@ -4,5 +4,3 @@ rules:
     max: 120
   truthy:
     allowed-values: ["true", "false", "yes", "no"]
-
-
